@@ -1,0 +1,51 @@
+---
+- name: Enable the EPEL Repo for PIP Install
+  yum:
+    name: epel-release
+    state: latest
+
+- name: "Installing Basic Tools"
+  package: pkg={{ item }} state=installed update_cache=yes
+  with_items:
+  - git
+  - vim
+  - libaio
+  - numactl
+  - sysfsutils
+  - unzip
+  - wget
+  - net-tools
+  - python-pip
+
+- name:
+  easy_install:
+    name: pip
+    state: latest
+
+- name: Upgrade OS
+  yum:
+    name: '*'
+    state: latest
+
+- name: "Install Python-pexpect"
+  pip:
+    name: pexpect
+
+- name: set timezone to UTC
+  timezone:
+    name: UTC
+    hwclock: UTC
+
+#- name: "Copy RHEL 7 SIO Files"
+#  copy:
+#    src: ./files/
+#    dest: /tmp/
+#    owner: root
+#    group: root
+#    mode: 0644
+
+- name: "Install SIO LIA"
+  yum:
+    name: '/tmp/EMC-ScaleIO-lia-{{ vxflex_version }}.el7.x86_64.rpm'
+    state: present
+
