@@ -46,6 +46,6 @@
 
 - name: "Install SIO LIA"
   yum:
-    name: '/tmp/EMC-ScaleIO-lia-{{ vxflex_version }}.el7.x86_64.rpm'
+    name: '/files/EMC-ScaleIO-lia-{{ vxflex_version }}.el7.x86_64.rpm'
     state: present
 
