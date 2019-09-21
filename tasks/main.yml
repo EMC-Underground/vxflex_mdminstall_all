@@ -38,7 +38,7 @@
 
 - name: "Copy RHEL 7 SIO Files"
   copy:
-    src: ./files/
+    src: ./files/EMC-ScaleIO-lia-{{ vxflex_version }}.el7.x86_64.rpm
     dest: /tmp/
     owner: root
     group: root
