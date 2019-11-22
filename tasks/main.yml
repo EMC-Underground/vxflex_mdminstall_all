@@ -15,7 +15,7 @@
   - unzip
   - wget
   - net-tools
-  - python-pip
+  - python3
 
 - name:
   easy_install:
