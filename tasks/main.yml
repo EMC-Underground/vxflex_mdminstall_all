@@ -27,9 +27,9 @@
     name: '*'
     state: latest
 
-#- name: "Install Python-pexpect"
-#  pip:
-#    name: pexpect
+- name: "Install Python-pexpect"
+  pip:
+    name: pexpect
 
 - name: set timezone to UTC
   timezone:
