@@ -18,11 +18,6 @@
   - python3
   - python-pip
 
-#- name:
-#  easy_install:
-#    name: pip
-#    state: latest
-
 - name: Upgrade OS
   yum:
     name: '*'
