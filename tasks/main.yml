@@ -45,3 +45,25 @@
     name: '/tmp/EMC-ScaleIO-lia-{{ vxflex_version }}.el7.x86_64.rpm'
     state: present
 
+- name: "Copy RHEL 7 SIO Files"
+  copy:
+    src: ./files/EMC-ScaleIO-mdm-{{ vxflex_version }}.el7.x86_64.rpm
+    dest: /tmp/
+    owner: root
+    group: root
+    mode: 0644
+  tags:
+    - install_mdm_manager
+
+- name: "Install MDM  on {{ hostvars[groups['elasticsearch'][0]] }} and set the host to Master"
+  yum:
+    name: '/tmp/EMC-ScaleIO-mdm-{{ vxflex_version }}.el7.x86_64.rpm'
+    state: present
+  environment:
+    MDM_ROLE_IS_MANAGER: 1
+  when:
+    - "'mdm' in group_names"
+    - hostvars[groups['mdm'][0]]
+  tags:
+    - install_mdm_manager
+`
