@@ -61,9 +61,9 @@
     state: present
   environment:
     MDM_ROLE_IS_MANAGER: 1
-  when:
-    - "'mdm' in group_names"
-    - hostvars[groups['mdm'][0]]
+#  when:
+#    - "'mdm' in group_names"
+#    - hostvars[groups['mdm'][0]]
   tags:
     - install_mdm_manager
 
