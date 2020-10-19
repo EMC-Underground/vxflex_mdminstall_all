@@ -44,7 +44,7 @@
     - install_mdm
 
 - name: Get version of CentOS
-  command: cat /etc/redhat-release | awk '{print $4}' | awk -F. '{print $1}'
+  command: "cat /etc/redhat-release | awk '{print $4}' | awk -F. '{print $1}'"
   register: el_version
   tags:
     - install_mdm
