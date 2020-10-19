@@ -26,7 +26,7 @@
   - wget
   - net-tools
   - python3
-  - python-pip
+  - python3-pip
   tags:
     - install_mdm
 
