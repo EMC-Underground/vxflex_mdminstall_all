@@ -38,7 +38,7 @@
 - name: "Installing Basic Tools"
   package: pkg={{ item }} state=installed update_cache=yes
   with_items:
-  - python3-pip
+  - python-pip
   when:
     - ansible_distribution == 'CentOS'
     - ansible_distribution_major_version == '7'
