@@ -3,6 +3,8 @@
   yum:
     name: epel-release
     state: latest
+  when:
+    - ansible_distribution == 'CentOS'
   tags:
     - install_mdm
 
@@ -11,6 +13,8 @@
     name: '*'
     state: latest
     update_cache: yes
+  when:
+    - ansible_distribution == 'CentOS'
   tags:
     - install_mdm
 
@@ -31,6 +35,16 @@
   tags:
     - install_mdm
 
+- name: "Installing Basic Tools"
+  package: pkg={{ item }} state=installed update_cache=yes
+  with_items:
+  - python3-pip
+  when:
+    - ansible_distribution == 'CentOS'
+    - ansible_distribution_major_version == '7'
+  tags:
+    - install_mdm
+    
 - name: "Install Python-pexpect"
   pip:
     name: pexpect
@@ -47,12 +61,16 @@
 - name: Get version of CentOS
   shell: cat /etc/redhat-release | awk '{print $4}' | awk -F. '{print $1}'
   register: centos_version
+  when:
+    - ansible_distribution == 'CentOS'
   tags:
     - install_mdm
 
 - name: Set OS version fact
   set_fact:
     el_version: "{{ centos_version.stdout }}"
+  when:
+    - ansible_distribution == 'CentOS'
   tags:
     - install_mdm
 
@@ -63,6 +81,8 @@
     owner: root
     group: root
     mode: 0644
+  when:
+    - ansible_distribution == 'CentOS'
   tags:
     - install_mdm
 
@@ -71,6 +91,8 @@
     name: '/tmp/EMC-ScaleIO-lia-{{ vxflex_version }}.el{{ el_version }}.x86_64.rpm'
     state: present
     disable_gpg_check: yes
+  when:
+    - ansible_distribution == 'CentOS'
   tags:
     - install_mdm
 
@@ -80,13 +102,15 @@
   tags:
     - install_mdm
 
-- name: "Copy RHEL 7 SIO Files"
+- name: "Copy RHEL SIO Files"
   copy:
     src: ./files/EMC-ScaleIO-mdm-{{ vxflex_version }}.el{{ el_version }}.x86_64.rpm
     dest: /tmp/
     owner: root
     group: root
     mode: 0644
+  when:
+    - ansible_distribution == 'CentOS'
   tags:
     - install_mdm
 
@@ -97,6 +121,8 @@
     disable_gpg_check: yes
   environment:
     MDM_ROLE_IS_MANAGER: "{{ is_manager }}"
+  when:
+    - ansible_distribution == 'CentOS'
   tags:
     - install_mdm
 
